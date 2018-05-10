@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.jpahibernate.demo.entity.Course;
 import com.example.jpahibernate.demo.repository.CourseRepository;
+import com.example.jpahibernate.demo.repository.StudentRepository;
 
 @SpringBootApplication
 public class SpringJpaHibernateApplication implements CommandLineRunner{
@@ -18,18 +19,22 @@ public class SpringJpaHibernateApplication implements CommandLineRunner{
 	@Autowired
 	private CourseRepository courseRepository;
 	
+	@Autowired
+	private StudentRepository studentRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringJpaHibernateApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		Course course = courseRepository.findById(1l);
+		//Course course = courseRepository.findById(1l);
 		//logger.info("Find by Id of 1->{}",course);
 		//logger.info("Delete by Id of 1");
 		//courseRepository.deleteById(1l);
 		//logger.info("Find by Id of 1->{}",course);
-		courseRepository.playWithEntityManager();
+		//courseRepository.playWithEntityManager();\
+		studentRepository.playWithEntityManager();
 		
 	}
 }
