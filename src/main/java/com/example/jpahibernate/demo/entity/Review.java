@@ -1,7 +1,9 @@
 package com.example.jpahibernate.demo.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Review {
@@ -13,6 +15,8 @@ public class Review {
 	
 	private String description;
 
+	@ManyToOne
+	private Course course;
 	
 	public Review() {
 		super();
@@ -21,6 +25,11 @@ public class Review {
 	public Review(long id, int rating, String description) {
 		super();
 		this.id = id;
+		this.rating = rating;
+		this.description = description;
+	}
+
+	public Review(int rating, String description) {
 		this.rating = rating;
 		this.description = description;
 	}
@@ -43,6 +52,14 @@ public class Review {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 	@Override

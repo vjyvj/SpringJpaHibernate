@@ -1,12 +1,13 @@
 package com.example.jpahibernate.demo.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,6 +20,9 @@ public class Course {
 	
 	@Column(name="fullName", nullable=false)
 	private String name;
+	
+	@OneToMany(mappedBy="course")
+	private List<Review> reviews;
 	
 	@CreationTimestamp
 	private LocalDateTime createdDate;
@@ -56,6 +60,19 @@ public class Course {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void addReview(Review review) {
+		this.reviews.add(review);
+	}
+	
+	public void removeReview(Review review) {
+		this.reviews.remove(review);
 	}
 
 	@Override

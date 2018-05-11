@@ -15,7 +15,7 @@ public class Passport {
 	
 	private String passport_number;
 
-	@OneToOne(fetch=FetchType.LAZY,mappedBy="passport")
+	@OneToOne(fetch=FetchType.EAGER,mappedBy="passport")
 	private Student student;
 	
 	public Passport() {

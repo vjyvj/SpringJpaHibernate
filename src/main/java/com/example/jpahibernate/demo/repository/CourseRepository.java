@@ -1,6 +1,7 @@
 package com.example.jpahibernate.demo.repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -9,9 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.jpahibernate.demo.entity.Course;
-import com.example.jpahibernate.demo.entity.Passport;
 import com.example.jpahibernate.demo.entity.Review;
-import com.example.jpahibernate.demo.entity.Student;
 
 @Repository
 @Transactional
@@ -38,46 +37,45 @@ public class CourseRepository {
 		em.persist(course1);
 		em.persist(course3);
 		
-		/*Student student1 = new Student(2000,"Vijay");
-		Student student2 = new Student(2001,"Raghav");
-		Student student3 = new Student(2002,"Suresh");
-		
-		em.persist(student1);
-		em.persist(student2);
-		em.persist(student3);
-		
-		Passport passport1 = new Passport(3000,"EJ123");
-		Passport passport2 = new Passport(3001,"EJ456");
-		Passport passport3 = new Passport(3002,"EJ789");
-		
-		em.persist(passport1);
-		em.persist(passport2);
-		em.persist(passport3);
-		
 		Review review1 = new Review(4000,3,"Best course");
+		review1.setCourse(course1);
 		Review review2 = new Review(4001,1,"Not interesting");
+		review2.setCourse(course2);
 		Review review3 = new Review(4002,5,"Excellent coaching for beginers");
+		review3.setCourse(course1);
 		
 		em.persist(review1);
 		em.persist(review2);
-		em.persist(review3);*/
+		em.persist(review3);
+		
+	}
+	
+	public void addReviewForCourseHardcoded() {
+		Course course = findById(1002l);
+		
+		Review review3 = new Review(4004,5, "Wow course");
+		Review review4 = new Review(4005,4, "Nice course");
+		
+		course.addReview(review3);
+		review3.setCourse(course);
+		course.addReview(review4);
+		review4.setCourse(course);
+		
+		em.persist(review3);
+		em.persist(review4);
+	}
+
+	public void addReviewForCourseDynamic(Long courseId, List<Review> reviews) {
+		
+		Course course = findById(courseId);
+		
+		reviews.forEach(r-> {
+			r.setCourse(course);
+			course.addReview(r);
+			em.persist(r);
+		});
 		
 		
-		/*em.flush();
-		course2.setName("Angular Js updated");
-		em.flush();
-		em.clear();
-		course1.setName(null);
-		em.persist(course1);
-		course2.setName("Angular Js updated");
-		em.flush();
-		System.out.println("@@@@@ course1 before refresh--"+course1.getName());
-		em.refresh(course1);
-		
-		System.out.println("@@@@@ course1 after refresh--"+course1.getName());
-		em.flush();
-		
-		System.out.println("@@@@@ course1 after flush--"+course1.getName());*/
 		
 	}
 }
